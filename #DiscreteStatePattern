@@ -1,0 +1,30 @@
+--- A Frame Specification
+--- https://frame-lang.org/
+--- source file: https://github.com/MixedReaction/DiscreteStatePattern
+
+#DiscreteStatePattern
+
+    -machine-
+
+    $MainMenu
+        |>>|
+            printInstructions()
+            -> "KeyPress" $Play ^
+    $Play
+        |>|
+            playGame()
+            -> "Game Over" $GameOver ^
+
+    $GameOver
+        |>|
+            printGameOverPlayAgain() ?~
+                /y/ -> "Play Again" $Play   :>
+                /n/ -> "Stop" $End    :: ^
+
+    $End
+
+    -domain-
+
+    var i:int = 0
+    const maxValue:int = int.MaxValue
+##
